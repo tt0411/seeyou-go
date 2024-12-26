@@ -1,0 +1,20 @@
+app:
+  name: seeyou
+  port: :3000
+  tokenTimeOut: 60 #分钟
+
+database:
+  dsn: root:12345678@tcp(127.0.0.1:3306)/seeyou?charset=utf8mb4&parseTime=True&loc=Local
+  MaxIdleConns: 11
+  MaxOpenCons: 114
+
+redis:
+  addr: localhost:6379
+  DB: 0
+  Password: ""
+
+mail:
+  smtp: smtp.qq.com
+  smtpPort: 465
+  user: 2726653264@qq.com
+  password: djisbdkoukojdfhb
