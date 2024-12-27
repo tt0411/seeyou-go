@@ -36,6 +36,8 @@ func AuthMiddleware() gin.HandlerFunc {
 		c.Set("userId", userId)
 		// 更新redis中的在线状态的过期时间
 		global.RedisDB.Expire(context.Background(), fmt.Sprintf("online:%s", userId), time.Minute*time.Duration(config.AppConfig.App.TokenTimeout))
+		// 更新redis中的token过期时间
+		global.RedisDB.Expire(context.Background(), fmt.Sprintf("token:%s", userId), time.Minute*time.Duration(config.AppConfig.App.TokenTimeout))
 		c.Next()
 	}
 }

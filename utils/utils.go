@@ -2,10 +2,14 @@ package utils
 
 import (
 	"context"
+	"crypto/md5"
+	"encoding/hex"
 	"errors"
 	"fmt"
+	"io"
 	"math"
 	"math/rand"
+	"os"
 	"regexp"
 	"seeyou-go/config"
 	"seeyou-go/global"
@@ -75,6 +79,21 @@ func HashPassword(password string) (string, error) {
 func CheckPasswordHash(password string, hash string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
 	return err == nil
+}
+
+func GetFileMD5(filePath string) (string, error) {
+	file, err := os.Open(filePath)
+	if err != nil {
+		return "", err
+	}
+	defer file.Close()
+
+	hash := md5.New()
+	if _, err := io.Copy(hash, file); err != nil {
+		return "", err
+	}
+
+	return hex.EncodeToString(hash.Sum(nil)), nil
 }
 
 func GenerateToken(userId string) (string, error) {

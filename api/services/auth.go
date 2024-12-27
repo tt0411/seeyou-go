@@ -287,7 +287,11 @@ func UpdateUserInfo(ctx *gin.Context) {
 	}
 
 	user.UpdatedAt = time.Now()
-	global.DB.Save(&user)
+	err := global.DB.Model(&models.AppUser{}).Where("id = ?", userId).Updates(&user).Error
+	if err != nil {
+		utils.ResponseError(ctx, "更新用户信息失败", nil)
+		return
+	}
 	utils.ResponseOk(ctx, "用户信息更新成功", nil)
 }
 

@@ -7,7 +7,7 @@ ProjectImgTag = wmt1030/seeyou-server:$(ImageCommitId)
 # 镜像名称
 ProjectImg = wmt1030/seeyou-server
 # 容器名称
-ProjectName = seeyou-server
+ProjectName = wmt1030/seeyou-server
 # 端口
 Port = 9102
 # 上一次镜像名称

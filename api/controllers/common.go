@@ -9,3 +9,7 @@ import (
 func SendEmailCode(ctx *gin.Context) {
 	services.SendEmailCode(ctx)
 }
+
+func UploadFile(ctx *gin.Context) {
+	services.UploadFile(ctx)
+}

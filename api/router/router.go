@@ -34,12 +34,20 @@ func SetupRouter() *gin.Engine {
 	common := r.Group("/api/common")
 	{
 		common.GET("/sendEmailCode", controllers.SendEmailCode)
+		common.POST("/uploadFile/:category", middlewares.AuthMiddleware(), controllers.UploadFile)
 	}
 	likes := r.Group("/api/likes")
 	{
 		likes.GET("/like", middlewares.AuthMiddleware(), controllers.LikePost)
 		likes.GET("/cancelLike", middlewares.AuthMiddleware(), controllers.CancelLikePost)
 	}
-
+	topics := r.Group("/api/topics")
+	{
+		topics.GET("/getTopicList", controllers.GetTopicList)
+		topics.GET("/getTopicInfo", controllers.GetTopicInfo)
+		topics.POST("/addTopic", middlewares.AuthMiddleware(), controllers.AddTopic)
+		topics.POST("/updateTopic", middlewares.AuthMiddleware(), controllers.UpdateTopic)
+		topics.DELETE("/deleteTopic", middlewares.AuthMiddleware(), controllers.DeleteTopic)
+	}
 	return r
 }

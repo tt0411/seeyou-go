@@ -20,6 +20,9 @@ func main() {
 
 	r := router.SetupRouter()
 
+	// 提供 uploads 目录的静态文件服务
+	r.Static("/uploads", "./uploads")
+
 	srv := &http.Server{
 		Addr:    port,
 		Handler: r,
